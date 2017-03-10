@@ -26,8 +26,9 @@ class DeserializeFromJson(object):
         self.context = context
         self.request = request
 
-    def __call__(self, validate_all=False):
-        data = json_body(self.request)
+    def __call__(self, validate_all=False, data=None):
+        if data is None:
+            data = json_body(self.request)
 
         obj = self.context
         modified = False
