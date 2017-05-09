@@ -850,4 +850,7 @@ class TestTraversal(unittest.TestCase):
                      'Upload-Offset': response.headers['Upload-Offset']},
             data=UPLOAD_DATA[3:]
         )
-        save_request_and_response_for_docs('tusupload_patch_finalized', response)
+        save_request_and_response_for_docs(
+            'tusupload_patch_finalized',
+            response
+        )
