@@ -1,46 +1,134 @@
 Changelog
 =========
 
-1.0a10 (unreleased)
+1.0a15 (unreleased)
+-------------------
+
+New Features:
+
+- Reorder children in a item using the content endpoint.
+  [jaroel]
+
+- Add batched listing of registry entries to @registry endpoint.
+  [jaroel]
+
+
+1.0a14 (2017-05-02)
+-------------------
+
+New Features:
+
+- Add @history endpoint.
+  [jaroel]
+
+Bugfixes:
+
+- Fix the @move endpoint fails to return 403 when the user don't have proper
+  delete permissions over the parent folder.
+  [sneridagh]
+
+
+1.0a13 (2017-04-18)
+-------------------
+
+New Features:
+
+- Add support for setting/modifying 'layout' on DX and AT content endpoints.
+  [jaroel]
+
+- Add support for getting the defined layouts on the root types endpoint.
+  [jaroel]
+
+Bugfixes:
+
+- Add the title to the workflow history in the @workflow endpoint.
+  This fixes #279.
+  [sneridagh]
+
+- Don't fetch unnecessary PasswordResetTool in Plone 5.1
+  [tomgross]
+
+
+1.0a12 (2017-04-03)
+-------------------
+
+Bugfixes:
+
+- Handle special case when user @move content that cannot delete returning
+  proper 403
+  [sneridagh]
+
+
+1.0a11 (2017-03-24)
+-------------------
+
+Bugfixes:
+
+- Remove zope.intid dependency from copy/move endpoint. Remove plone.api
+  dependency from principals endpoint. Make
+  ChoiceslessRelationListSchemaProvider available only if z3c.relationfield
+  is installed. This fixes https://github.com/plone/plone.restapi/issues/288
+  [erral]
+
+- Remove unittest2 imports from tests.
+  [timo]
+
+- Add Products.PasswortResetTool to dependencies. This dependency is gone in
+  Plone 5.1.
+  [timo]
+
+- Make import of LocalrolesModifiedEvent conditional, so plone.restapi
+  doesn't prevent Plone 4.3 deployments < 4.3.4 from booting.
+  [lgraf]
+
+
+1.0a10 (2017-03-22)
 -------------------
 
 New Features:
 
 - Add @sharing endpoint.
-  [timo,csenger]
+  [timo,csenger,sneridagh]
 
 - Add reset-password action to the user endpoint.
   https://github.com/plone/plone.restapi/issues/158
   [timo,csenger]
 
 - Add @vocabularies endpoint.
-  https://github.com/plone/plone.restapi/issues/212
   [timo,csenger,sneridagh]
 
-- Implement @copy and @move endpoints.
-  [buchi]
+- Add @copy and @move endpoints.
+  [buchi,sneridagh]
 
-- Docs: Use sphinxcontrib-httpexample and convert existing examples.
+- Docs: Convert all HTTP examples to use sphinxcontrib-httpexample.
   [lgraf]
 
-- Added 'addable' to @types endpoint. It specifies if the content type can be
-  added to the current context. See https://github.com/plone/plone.restapi/issues/173
+- Add 'addable' attribute to the @types endpoint. It specifies if the content
+  type can be added to the current context. See
+  https://github.com/plone/plone.restapi/issues/173.
   [jaroel]
 
-- Added support for named IJsonSchemaProvider adapter to target a single
+- Add support for named IJsonSchemaProvider adapter to target a single
   field in a schema. This allows us to prevent rendering all choices in
-  relatedItems. See https://github.com/plone/plone.restapi/issues/199
+  relatedItems. See https://github.com/plone/plone.restapi/issues/199.
   [jaroel]
 
 - Add review_state to the folderish summary serializer.
   [sneridagh]
 
-- Add new @principals endpoint. It searches for principals and returns a list
-  of users and groups that matches the query. This is aimed to be used in the
+- Add @principals endpoint. It searches for principals and returns a list of
+  users and groups that matches the query. This is aimed to be used in the
   sharing UI widget or other user/groups search widgets.
   [sneridagh]
 
+- Add reset-password action to the @users endpoint.
+  https://github.com/plone/plone.restapi/issues/158
+  [timo,csenger]
+
 Bugfixes:
+
+- Fix coveralls reporting.
+  [timo]
 
 - Return correct @id for folderish objects created via POST.
   [lgraf]
@@ -57,7 +145,7 @@ Bugfixes:
   fields in correct order and in their appropriate fieldsets.
   [lgraf]
 
-- Add missing id to the Plone site serialization, related to issue #186
+- Add missing id to the Plone site serialization, related to issue #186.
   [sneridagh]
 
 - Propose a fix for the issue #253 by not comparing IDatetime fields when
@@ -66,6 +154,11 @@ Bugfixes:
 - Add missing adapter for IBytes on JSONFieldSchema generator. This fixes the
   broken /@types/Image and /@types/File endpoints.
   [sneridagh]
+
+- Fix addable types for member users and roles assigned locally on @types
+  endpoint.
+  [sneridagh]
+
 
 
 1.0a9 (2017-03-03)

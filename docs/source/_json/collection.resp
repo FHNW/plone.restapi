@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "@id": "http://localhost:55001/plone/collection", 
   "@type": "Collection", 
-  "UID": "d0c89bc77f874ce1aad5720921d875c0", 
+  "UID": "SomeUUID000000000000000000000002", 
   "allow_discussion": null, 
   "contributors": [], 
   "created": "2016-01-21T08:14:48+00:00", 
@@ -44,6 +44,7 @@ Content-Type: application/json
   ], 
   "items_total": 3, 
   "language": "", 
+  "layout": "listing_view", 
   "limit": 1000, 
   "modified": "2016-01-21T08:24:11+00:00", 
   "parent": {
@@ -70,5 +71,6 @@ Content-Type: application/json
   "sort_reversed": null, 
   "subjects": [], 
   "text": null, 
-  "title": "My Collection"
+  "title": "My Collection", 
+  "version": "current"
 }

@@ -11,17 +11,19 @@ env:
 before_install:
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - virtualenv .
-  - bin/pip install --upgrade pip setuptools zc.buildout
+  - bin/pip install -r requirements.txt
 install:
   - sed -ie "s#plone-x.x.x.cfg#plone-$PLONE_VERSION.cfg#" travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/code-analysis
+  - bin/sphinxbuilder
   - bin/test
   - bin/test-no-uncommitted-doc-changes
 after_success:
   - bin/test-coverage
   - bin/createcoverage
-  - pip install -q coveralls
+  - pip install coverage==3.7.1 coveralls
   - coveralls
-  - cat .coverage
+  - docker.io build --tag plone.restapi:$(git rev-parse HEAD) .
+#  - docker.io push plone/plone.restapi

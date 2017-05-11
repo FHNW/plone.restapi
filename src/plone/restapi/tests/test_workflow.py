@@ -6,7 +6,7 @@ from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import login
 from plone.restapi.testing import PLONE_RESTAPI_DX_INTEGRATION_TESTING
-from unittest2 import TestCase
+from unittest import TestCase
 from zExceptions import NotFound
 from zope.component import getMultiAdapter
 from zope.event import notify
@@ -33,6 +33,7 @@ class TestWorkflowInfo(TestCase):
         history = info['history']
         self.assertEqual(3, len(history))
         self.assertEqual('published', history[-1][u'review_state'])
+        self.assertEqual('Published', history[-1][u'title'])
 
     def test_workflow_info_includes_transitions(self):
         wfinfo = getMultiAdapter((self.doc1, self.request),

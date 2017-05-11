@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 from decimal import Decimal
-from unittest2 import TestCase
+from unittest import TestCase
 
 from zope.component import getMultiAdapter
 from zope import schema
@@ -98,6 +98,7 @@ class TestJsonSchemaUtils(TestCase):
         self.assertIn('title', jsonschema['required'])
         self.assertEquals('default', jsonschema['fieldsets'][0]['id'])
         self.assertIn('title', jsonschema['fieldsets'][0]['fields'])
+        self.assertIn('layouts', jsonschema)
 
         jsonschema = get_jsonschema_for_fti(
             ttool['Document'],
