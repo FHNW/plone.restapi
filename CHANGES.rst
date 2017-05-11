@@ -90,6 +90,10 @@ New Features:
 - Add @sharing endpoint.
   [timo,csenger,sneridagh]
 
+- Add reset-password action to the user endpoint.
+  https://github.com/plone/plone.restapi/issues/158
+  [timo,csenger]
+
 - Add @vocabularies endpoint.
   [timo,csenger,sneridagh]
 
@@ -144,6 +148,9 @@ Bugfixes:
 - Add missing id to the Plone site serialization, related to issue #186.
   [sneridagh]
 
+- Propose a fix for the issue #253 by not comparing IDatetime fields when
+  patching and set the value always.
+
 - Add missing adapter for IBytes on JSONFieldSchema generator. This fixes the
   broken /@types/Image and /@types/File endpoints.
   [sneridagh]
@@ -151,6 +158,7 @@ Bugfixes:
 - Fix addable types for member users and roles assigned locally on @types
   endpoint.
   [sneridagh]
+
 
 
 1.0a9 (2017-03-03)
