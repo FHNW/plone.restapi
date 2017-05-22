@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
-from DateTime.interfaces import DateTimeError
 from datetime import timedelta
+from DateTime.interfaces import DateTimeError
 from plone.app.textfield.interfaces import IRichText
 from plone.app.textfield.value import RichTextValue
 from plone.dexterity.interfaces import IDexterityContent
 from plone.namedfile.interfaces import INamedField
 from plone.restapi.interfaces import IFieldDeserializer
+from pytz import timezone
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import implementer
@@ -18,6 +19,8 @@ from zope.schema.interfaces import IField
 from zope.schema.interfaces import IFromUnicode
 from zope.schema.interfaces import ITime
 from zope.schema.interfaces import ITimedelta
+
+import dateutil
 
 
 @implementer(IFieldDeserializer)
@@ -39,12 +42,21 @@ class DefaultFieldDeserializer(object):
 @adapter(IDatetime, IDexterityContent, IBrowserRequest)
 class DatetimeFieldDeserializer(DefaultFieldDeserializer):
 
+    def __init__(self, field, context, request):
+        self.field = field
+        self.context = context
+        self.request = request
+
     def __call__(self, value):
+
         try:
             # Parse ISO 8601 string with Zope's DateTime module
             # and convert to a timezone naive datetime in local time
-            value = DateTime(value).toZone(DateTime().localZone()).asdatetime(
-            ).replace(tzinfo=None)
+            from plone.event.utils import default_timezone
+            tzval = default_timezone(self.context)
+            tzinfo = timezone(tzval)
+            dt = dateutil.parser.parse(value)
+            value = tzinfo.localize(dt)
         except (SyntaxError, DateTimeError) as e:
             raise ValueError(e.message)
 
